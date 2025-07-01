@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: bff
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_FIRST
+      routes:
+        - id: productos
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/productos/**, /api/productos-personalizados/**, /api/ordenes/**, /api/carrito/**, /api/categorias/**, /api/colores/**, /api/tallas/**, /api/fuentes/**, /api/disenos/**
+        - id: usuarios
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/usuarios/**, /api/auth/**
+
+# CORS for local dev
+  mvc:
+    cors:
+      mappings:
+        "/**":
+          allowed-origins: "*"
+          allowed-methods: "*"
+          allowed-headers: "*"
+          allow-credentials: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
