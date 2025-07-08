@@ -15,6 +15,13 @@ spring:
     gateway:
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_FIRST
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowed-origin-patterns: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: true
       routes:
         - id: productos
           # uri: http://host.docker.internal:8081
@@ -29,15 +36,14 @@ spring:
           predicates:
             - Path=/api/usuarios/**, /api/auth/**
 
-  # CORS for local dev
   mvc:
     cors:
       mappings:
-        "/**":
-          allowed-origin-patterns: "*" # ← usa patterns
-          allowed-methods: "*"
+        "/actuator/**":
+          allowed-origin-patterns: "*"
+          allowed-methods: "GET"
           allowed-headers: "*"
-          allow-credentials: true
+          allow-credentials: false
 
 management:
   endpoints:
