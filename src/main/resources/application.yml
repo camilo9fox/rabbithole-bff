@@ -27,7 +27,7 @@ spring:
           # uri: http://host.docker.internal:8081
           uri: http://productos:8081
           predicates:
-            - Path=/api/productos/**, /api/estados-diseno/**, /api/estados-orden/**, /api/cloudinary/**, /api/productos-personalizados/**, /api/ordenes/**, /api/carrito/**, /api/carritos/**, /api/categorias/**, /api/colores/**, /api/thumbnails/**, /api/tallas/**, /api/fuentes/**, /api/disenos/**
+            - Path=/api/productos/**, /api/estados-diseno/**, /api/estados-orden/**, /api/cloudinary/**, /api/productos-personalizados, /api/productos-personalizados/**, /api/ordenes, /api/ordenes/**, /api/carrito/**, /api/carritos/**, /api/categorias/**, /api/colores/**, /api/thumbnails/**, /api/tallas/**, /api/fuentes/**, /api/disenos/**
         - id: usuarios
           filters:
             - TokenRelay
