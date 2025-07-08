@@ -34,7 +34,7 @@ spring:
     cors:
       mappings:
         "/**":
-          allowed-origins: "*"
+          allowed-origin-patterns: "*" # ← usa patterns
           allowed-methods: "*"
           allowed-headers: "*"
           allow-credentials: true
