@@ -24,6 +24,8 @@ spring:
             allow-credentials: true
       routes:
         - id: productos
+          filters:
+            - RemoveRequestHeader=Origin
           # uri: http://host.docker.internal:8081
           uri: http://productos:8081
           predicates:
