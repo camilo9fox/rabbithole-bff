@@ -4,21 +4,32 @@ server:
 spring:
   application:
     name: bff
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://azurecnsum1.b2clogin.com/5497f70a-565c-40b7-92c7-b62049f8638f/v2.0/
+          jwk-set-uri: https://azurecnsum1.b2clogin.com/5497f70a-565c-40b7-92c7-b62049f8638f/discovery/v2.0/keys?p=B2C_1_signupsignin
+      client: {} # placeholder si se requiere más adelante
   cloud:
     gateway:
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_FIRST
       routes:
         - id: productos
-          uri: http://localhost:8081
+          # uri: http://host.docker.internal:8081
+          uri: http://productos:8081
           predicates:
-            - Path=/api/productos/**, /api/productos-personalizados/**, /api/ordenes/**, /api/carrito/**, /api/categorias/**, /api/colores/**, /api/tallas/**, /api/fuentes/**, /api/disenos/**
+            - Path=/api/productos/**, /api/estados-diseno/**, /api/estados-orden/**, /api/cloudinary/**, /api/productos-personalizados/**, /api/ordenes/**, /api/carrito/**, /api/carritos/**, /api/categorias/**, /api/colores/**, /api/thumbnails/**, /api/tallas/**, /api/fuentes/**, /api/disenos/**
         - id: usuarios
-          uri: http://localhost:8082
+          filters:
+            - TokenRelay
+          # uri: http://host.docker.internal:8082
+          uri: http://usuarios:8082
           predicates:
             - Path=/api/usuarios/**, /api/auth/**
 
-# CORS for local dev
+  # CORS for local dev
   mvc:
     cors:
       mappings:
@@ -33,3 +44,6 @@ management:
     web:
       exposure:
         include: health,info,metrics
+logging:
+  level:
+    com.rabbithole.bff.config: DEBUG # muestra los logs del converter
