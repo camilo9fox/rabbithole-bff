@@ -28,6 +28,7 @@ public class SecurityConfig {
                                                 .pathMatchers(HttpMethod.PUT, "/api/productos/**").hasRole("ADMIN")
                                                 .pathMatchers(HttpMethod.PATCH, "/api/productos/**").hasRole("ADMIN")
                                                 .pathMatchers(HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
+                                                .pathMatchers(HttpMethod.PUT, "/api/usuarios/*").authenticated()
                                                 .pathMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
                                                 .pathMatchers("/health", "/actuator/**", "/api/auth/**", "/public/**",
                                                                 "/api/productos-personalizados/**", "/api/colores/**",
